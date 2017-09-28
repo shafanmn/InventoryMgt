@@ -31,7 +31,7 @@ namespace EwingInventory
             LoadSystem();
               
             disableDesignations();
-            LoadToDatagridview(dgv_Desig, "SELECT id 'CODE', name 'DESIGNATION' FROM designation");
+            LoadToDatagridview(dgv_Desig, "SELECT id 'CODE', name 'DESIGNATION' FROM designation WHERE id > 0;");
         }
 
         public void disableDesignations()
@@ -200,6 +200,7 @@ namespace EwingInventory
                 btn_save.Enabled = false;
                 btn_save.Text = "Add";
                 dgv_Desig.Enabled = false;
+                txt_desig.Focus();
             }
             else if (btn_new.Text == "Clear")
             {
@@ -268,7 +269,8 @@ namespace EwingInventory
                     //Refersh Table
                     disableDesignations();
                     btn_new.Text = "New";
-                    LoadToDatagridview(dgv_Desig, "SELECT id 'CODE', name 'DESIGNATION' FROM designation");
+                    LoadToDatagridview(dgv_Desig, "SELECT id 'CODE', name 'DESIGNATION' FROM designation WHERE id > 0");
+                    btn_new.Enabled = true;
                     dgv_Desig.Enabled = true;
                 }
             }
@@ -337,7 +339,8 @@ namespace EwingInventory
             if(ofd.ShowDialog() == DialogResult.OK)
             {
                 set_logo.Image = new Bitmap(ofd.FileName);
-                logoPath = ofd.FileName;                
+                MessageBox.Show(ofd.FileName);
+                logoPath = ofd.FileName;
             }
         }
 

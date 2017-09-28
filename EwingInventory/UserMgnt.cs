@@ -17,7 +17,7 @@ namespace EwingInventory
         static Homepage home = new Homepage();
         MySqlConnection conn = new MySqlConnection(home.connString);
         public string currentUser = String.Empty;
-        
+        public string currentUseraccess = String.Empty;
         public string currentUID = "";
         public string imagepath = null;
         public string selectedUser = "";
@@ -80,9 +80,9 @@ namespace EwingInventory
             lbl_leaveOn.Visible = false;
             lbl_nOdays.Visible = false;
             lbl_amount.Visible = false;
-            dateTimePicker1.Visible = false;
-            numericUpDown1.Visible = false;
-            numericUpDown2.Visible = false;
+            reqDate.Visible = false;
+            reqDays.Visible = false;
+            reqAmt.Visible = false;
             button4.Visible = false;
         }
 
@@ -181,7 +181,7 @@ namespace EwingInventory
             {
                 conn.Open();
                 MySqlDataReader dr = null;
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM staff s, designation d WHERE s.desig = d.id AND s.uName = '"+currentUser+"';", conn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM staff s, designation d WHERE s.desig = d.id AND s.uName = '"+this.currentUser+"';", conn);
 
                 dr = cmd.ExecuteReader();
 
@@ -191,10 +191,11 @@ namespace EwingInventory
                     string[] db = dob[0].ToString().Split('-');
 
                     fullName.Text = dr["fName"].ToString()+" "+ dr["lName"].ToString();
-                    designation.Text = dr["desig"].ToString();
+                    designation.Text = dr["name"].ToString();
                     username.Text = dr["uName"].ToString();
                     leaves.Text = dr["leaves"].ToString();
                     txt_password.Text = dr["pass"].ToString();
+                    pic_user.ImageLocation = dr["image"].ToString();
 
                     age.Text = (DateTime.Now.Year - Convert.ToInt32(db[0])).ToString();
 
@@ -212,6 +213,7 @@ namespace EwingInventory
         {
             MySqlConnection conn = new MySqlConnection(home.connString);
             string[] date = DateTime.Now.Date.ToString().Split(' ');
+
             try
             {
                 conn.Open();
@@ -257,16 +259,34 @@ namespace EwingInventory
 
         private void frm_users_Load(object sender, EventArgs e)
         {
-            if (this.currentUser != "ADMIN")
+            if (this.currentUseraccess == "0")
             {
+                //Administrator
+                tab_user.TabPages.Remove(tabPage2); //MyAccount
+                tab_user.TabPages.Remove(tabPage3); //Requests
+                home.LoadToDatagridview(dgvStaff, "SELECT sId 'ID',fName 'NAME' FROM staff WHERE sId > 0");
+                dgvStaff.Columns[0].Width = 20;
+                home.fillCombo(cmb_desig, "SELECT name FROM designation WHERE id > 0;", "name");
+            }
+            else if(this.currentUseraccess == "2")
+            {
+                //User mode staff
                 tab_user.TabPages.Remove(tabPage1);
                 tab_user.TabPages.Remove(tabPage3);
+                home.LoadToDatagridview(dgvRequest, "SELECT date, type, amount, status FROM requests WHERE sId=" + this.currentUID + ";");
                 userDetails();
                 attDetails();
             }
             else
             {
-                tab_user.TabPages.Remove(tabPage2);
+                //Admin mode staff
+                home.LoadToDatagridview(dgvStaff, "SELECT sId 'ID',fName 'NAME' FROM staff WHERE sId > 0");
+                home.fillCombo(cmb_desig, "SELECT name FROM designation WHERE id > 0;", "name");
+                dgvStaff.Columns[0].Width = 20;
+                home.LoadToDatagridview(dgvRequest, "SELECT date, type, amount, status FROM requests WHERE sId=" + this.currentUID + ";");
+                home.LoadToDatagridview(dgvReqMg, "SELECT * FROM requests");
+                userDetails();
+                attDetails();
             }
 
             string w = Screen.FromControl(home).WorkingArea.Width.ToString();
@@ -274,12 +294,6 @@ namespace EwingInventory
             FormBorderStyle = FormBorderStyle.FixedSingle;
             btn_clear.Enabled = true;
             disableFields();
-
-            home.LoadToDatagridview(dgvStaff, "SELECT sId 'ID',fName 'NAME' FROM staff WHERE sId > 0");
-            dgvStaff.Columns[0].Width = 20;
-            home.fillCombo(cmb_desig, "SELECT name FROM designation WHERE id > 0;", "name");
-            home.LoadToDatagridview(dgvRequest,"SELECT date,type,amount,status FROM requests WHERE sId="+this.currentUID+";");
-            home.LoadToDatagridview(dgvReqMg, "SELECT * FROM requests");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -309,6 +323,7 @@ namespace EwingInventory
         {
             btn_save.Text = "Edit";
             btn_save.Enabled = true;
+            this.selectedUser = dgvStaff.SelectedCells[1].Value.ToString();
 
             string id = dgvStaff.SelectedCells[0].Value.ToString();
             
@@ -365,19 +380,21 @@ namespace EwingInventory
             var opt = DialogResult.Cancel;
             string ms, q;
             
+            
             btn_clear.Text = "Clear";
             btn_clear.Enabled = true;
 
             if (btn_save.Text == "Edit")
             {
                 enableFields();
+                dgvStaff.Enabled = false;
                 btn_clear.Text = "Clear";
                 btn_save.Text = "Save";
             }else
             {
                 if (isFilled())
                 {
-                    if(isExist(txt_user.Text))
+                    if(this.selectedUser != txt_user.Text && home.isExist("SELECT uName FROM staff WHERE uName='"+txt_user.Text+"';"))
                     {
                         MessageBox.Show("Username already exist!", "Error");
                         txt_user.Focus();
@@ -420,7 +437,7 @@ namespace EwingInventory
                             cmd.Parameters.Add("@access", MySqlDbType.Int32).Value = cmb_access.SelectedIndex;
                             cmd.Parameters.Add("@joined", MySqlDbType.Date).Value = new DateTime(Convert.ToInt32(dj[0]),Convert.ToInt32(dj[1]),Convert.ToInt32(dj[2]));
                             cmd.Parameters.Add("@dob", MySqlDbType.Date).Value = new DateTime(Convert.ToInt32(db[0]), Convert.ToInt32(db[1]), Convert.ToInt32(db[2])); ;
-                            cmd.Parameters.Add("@desig", MySqlDbType.Int32).Value = cmb_desig.SelectedIndex;
+                            cmd.Parameters.Add("@desig", MySqlDbType.Int32).Value = cmb_desig.SelectedIndex+1;
 
                             try
                             {
@@ -432,6 +449,7 @@ namespace EwingInventory
                                     clearFields();
                                     disableFields();
                                     dgvStaff.Enabled = true;
+                                    this.selectedUser = "";
                                     btn_clear.Text = "New";
                                 }
 
@@ -470,9 +488,9 @@ namespace EwingInventory
                 lbl_nOdays.Visible = true;
                 lbl_nOdays.Text = "Days";
                 lbl_amount.Visible = false;
-                dateTimePicker1.Visible = true;
-                numericUpDown1.Visible = true;
-                numericUpDown2.Visible = false;
+                reqDate.Visible = true;
+                reqDays.Visible = true;
+                reqAmt.Visible = false;
                 button4.Visible = true;
             }
             else if(select == 1)
@@ -480,9 +498,9 @@ namespace EwingInventory
                 lbl_leaveOn.Visible = true;
                 lbl_nOdays.Visible = false;
                 lbl_amount.Visible = false;
-                dateTimePicker1.Visible = true;
-                numericUpDown1.Visible = false;
-                numericUpDown2.Visible = false;
+                reqDate.Visible = true;
+                reqDays.Visible = false;
+                reqAmt.Visible = false;
                 button4.Visible = true;
             }
             else if(select == 2)
@@ -490,9 +508,9 @@ namespace EwingInventory
                 lbl_leaveOn.Visible = true;
                 lbl_nOdays.Visible = false;
                 lbl_amount.Visible = true;
-                dateTimePicker1.Visible = true;
-                numericUpDown1.Visible = false;
-                numericUpDown2.Visible = true;
+                reqDate.Visible = true;
+                reqDays.Visible = false;
+                reqAmt.Visible = true;
                 button4.Visible = true;
             }
             else if(select == 3)
@@ -500,16 +518,42 @@ namespace EwingInventory
                 lbl_leaveOn.Visible = false;
                 lbl_nOdays.Visible = false;
                 lbl_amount.Visible = true;
-                dateTimePicker1.Visible = false;
-                numericUpDown1.Visible = false;
-                numericUpDown2.Visible = true;
+                reqDate.Visible = false;
+                reqDays.Visible = false;
+                reqAmt.Visible = true;
                 button4.Visible = true;
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files(*.jpg; *.jpeg; *.png; *.bmp)|*.jpg; *.jpeg; *.png; *.bmp";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                pic_user.Image = new Bitmap(ofd.FileName);
+                string path = ofd.FileName;
 
+                MySqlCommand cmd = new MySqlCommand("UPDATE staff SET image=@path WHERE sId='"+this.currentUID+"';",conn);
+                cmd.Parameters.Add("@path", MySqlDbType.VarChar).Value = path;
+
+                try
+                {
+                    conn.Open();
+                    if(cmd.ExecuteNonQuery() == 1)
+                    {
+                        MessageBox.Show("Image Updated Successfully!");
+                        userDetails();
+                    }
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
@@ -619,6 +663,57 @@ namespace EwingInventory
             {
                 conn.Close();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if(txt_password.Text != "")
+            {
+                var rep = MessageBox.Show("Are you sure you want to change the password?", "Confirm",MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if(rep == DialogResult.OK)
+                {
+                    MySqlCommand cmd = new MySqlCommand("UPDATE staff SET pass=@pass WHERE sId='"+this.currentUID+"';",conn);
+                    cmd.Parameters.Add("@pass", MySqlDbType.VarChar).Value = txt_password.Text;
+
+                    try
+                    {
+                        conn.Open();
+                        if(cmd.ExecuteNonQuery() == 1)
+                        {
+                            MessageBox.Show("Password updated successfully!");
+                            userDetails();
+                        }
+                    }catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        private void txt_password_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_password.Text == "")
+                button3.Enabled = false;
+            else
+                button3.Enabled = true;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string date = reqDate.Value.ToShortDateString();
+
+            string q = "INSERT INTO requests VALUES(@sId,@date,@type,@amt,@st);";
+
+            MySqlCommand cmd = new MySqlCommand(q, conn);
+            cmd.Parameters.Add("@sId", MySqlDbType.Int32).Value = Convert.ToInt32(this.currentUID);
+            cmd.Parameters.Add("@date",MySqlDbType.VarChar).Value = reqDate.Value.ToShortDateString();
+            cmd.Parameters.Add("@type", MySqlDbType.Int32).Value = comboBox1.SelectedIndex;
+            //cmd.Parameters.Add("@amt",MySqlDbType.Double).Value = ;
         }
     }
 }

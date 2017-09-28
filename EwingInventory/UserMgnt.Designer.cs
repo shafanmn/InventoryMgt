@@ -86,13 +86,13 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.dgvRequest = new System.Windows.Forms.DataGridView();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.reqAmt = new System.Windows.Forms.NumericUpDown();
             this.lbl_amount = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.reqDays = new System.Windows.Forms.NumericUpDown();
             this.lbl_nOdays = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.lbl_leaveOn = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.reqDate = new System.Windows.Forms.DateTimePicker();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -157,8 +157,8 @@
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRequest)).BeginInit();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reqAmt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reqDays)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_user)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -828,22 +828,24 @@
             // 
             this.dgvRequest.AllowUserToAddRows = false;
             this.dgvRequest.AllowUserToDeleteRows = false;
+            this.dgvRequest.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRequest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRequest.Location = new System.Drawing.Point(6, 18);
             this.dgvRequest.Name = "dgvRequest";
             this.dgvRequest.ReadOnly = true;
+            this.dgvRequest.RowHeadersVisible = false;
             this.dgvRequest.Size = new System.Drawing.Size(357, 167);
             this.dgvRequest.TabIndex = 0;
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.numericUpDown2);
+            this.groupBox6.Controls.Add(this.reqAmt);
             this.groupBox6.Controls.Add(this.lbl_amount);
-            this.groupBox6.Controls.Add(this.numericUpDown1);
+            this.groupBox6.Controls.Add(this.reqDays);
             this.groupBox6.Controls.Add(this.lbl_nOdays);
             this.groupBox6.Controls.Add(this.button4);
             this.groupBox6.Controls.Add(this.lbl_leaveOn);
-            this.groupBox6.Controls.Add(this.dateTimePicker1);
+            this.groupBox6.Controls.Add(this.reqDate);
             this.groupBox6.Controls.Add(this.comboBox1);
             this.groupBox6.Controls.Add(this.label20);
             this.groupBox6.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -854,30 +856,30 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Requests";
             // 
-            // numericUpDown2
+            // reqAmt
             // 
-            this.numericUpDown2.DecimalPlaces = 2;
-            this.numericUpDown2.Font = new System.Drawing.Font("Cambria", 10F);
-            this.numericUpDown2.Increment = new decimal(new int[] {
+            this.reqAmt.DecimalPlaces = 2;
+            this.reqAmt.Font = new System.Drawing.Font("Cambria", 10F);
+            this.reqAmt.Increment = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown2.Location = new System.Drawing.Point(95, 125);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.reqAmt.Location = new System.Drawing.Point(95, 125);
+            this.reqAmt.Maximum = new decimal(new int[] {
             50000,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.reqAmt.Minimum = new decimal(new int[] {
             6000,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(119, 23);
-            this.numericUpDown2.TabIndex = 41;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.reqAmt.Name = "reqAmt";
+            this.reqAmt.Size = new System.Drawing.Size(106, 23);
+            this.reqAmt.TabIndex = 41;
+            this.reqAmt.Value = new decimal(new int[] {
             6000,
             0,
             0,
@@ -893,19 +895,19 @@
             this.lbl_amount.TabIndex = 40;
             this.lbl_amount.Text = "Amount";
             // 
-            // numericUpDown1
+            // reqDays
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("Cambria", 10F);
-            this.numericUpDown1.Location = new System.Drawing.Point(98, 92);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.reqDays.Font = new System.Drawing.Font("Cambria", 10F);
+            this.reqDays.Location = new System.Drawing.Point(98, 92);
+            this.reqDays.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(49, 23);
-            this.numericUpDown1.TabIndex = 39;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.reqDays.Name = "reqDays";
+            this.reqDays.Size = new System.Drawing.Size(49, 23);
+            this.reqDays.TabIndex = 39;
+            this.reqDays.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -932,6 +934,7 @@
             this.button4.TabIndex = 33;
             this.button4.Text = "Request";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // lbl_leaveOn
             // 
@@ -943,15 +946,15 @@
             this.lbl_leaveOn.TabIndex = 36;
             this.lbl_leaveOn.Text = "On";
             // 
-            // dateTimePicker1
+            // reqDate
             // 
-            this.dateTimePicker1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(98, 61);
-            this.dateTimePicker1.MinDate = new System.DateTime(2017, 8, 25, 0, 0, 0, 0);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(161, 23);
-            this.dateTimePicker1.TabIndex = 35;
+            this.reqDate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.reqDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.reqDate.Location = new System.Drawing.Point(98, 61);
+            this.reqDate.MinDate = new System.DateTime(2017, 8, 25, 0, 0, 0, 0);
+            this.reqDate.Name = "reqDate";
+            this.reqDate.Size = new System.Drawing.Size(103, 23);
+            this.reqDate.TabIndex = 35;
             // 
             // comboBox1
             // 
@@ -1001,80 +1004,80 @@
             // leaves
             // 
             this.leaves.AutoSize = true;
-            this.leaves.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.leaves.Location = new System.Drawing.Point(307, 161);
+            this.leaves.Font = new System.Drawing.Font("Cambria", 10F);
+            this.leaves.Location = new System.Drawing.Point(265, 150);
             this.leaves.Name = "leaves";
-            this.leaves.Size = new System.Drawing.Size(134, 19);
+            this.leaves.Size = new System.Drawing.Size(119, 16);
             this.leaves.TabIndex = 40;
             this.leaves.Text = "Leaves Remaining";
             // 
             // designation
             // 
             this.designation.AutoSize = true;
-            this.designation.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.designation.Location = new System.Drawing.Point(307, 65);
+            this.designation.Font = new System.Drawing.Font("Cambria", 10F);
+            this.designation.Location = new System.Drawing.Point(265, 64);
             this.designation.Name = "designation";
-            this.designation.Size = new System.Drawing.Size(91, 19);
+            this.designation.Size = new System.Drawing.Size(80, 16);
             this.designation.TabIndex = 39;
             this.designation.Text = "Designation";
             // 
             // age
             // 
             this.age.AutoSize = true;
-            this.age.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.age.Location = new System.Drawing.Point(307, 113);
+            this.age.Font = new System.Drawing.Font("Cambria", 10F);
+            this.age.Location = new System.Drawing.Point(265, 107);
             this.age.Name = "age";
-            this.age.Size = new System.Drawing.Size(35, 19);
+            this.age.Size = new System.Drawing.Size(31, 16);
             this.age.TabIndex = 38;
             this.age.Text = "Age";
             // 
             // fullName
             // 
             this.fullName.AutoSize = true;
-            this.fullName.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fullName.Location = new System.Drawing.Point(307, 19);
+            this.fullName.Font = new System.Drawing.Font("Cambria", 10F);
+            this.fullName.Location = new System.Drawing.Point(265, 21);
             this.fullName.Name = "fullName";
-            this.fullName.Size = new System.Drawing.Size(79, 19);
+            this.fullName.Size = new System.Drawing.Size(71, 16);
             this.fullName.TabIndex = 37;
             this.fullName.Text = "Full Name";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(161, 161);
+            this.label22.Font = new System.Drawing.Font("Cambria", 10F);
+            this.label22.Location = new System.Drawing.Point(144, 150);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(134, 19);
+            this.label22.Size = new System.Drawing.Size(119, 16);
             this.label22.TabIndex = 36;
             this.label22.Text = "Leaves Remaining";
             // 
             // lbl_desig
             // 
             this.lbl_desig.AutoSize = true;
-            this.lbl_desig.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_desig.Location = new System.Drawing.Point(161, 65);
+            this.lbl_desig.Font = new System.Drawing.Font("Cambria", 10F);
+            this.lbl_desig.Location = new System.Drawing.Point(144, 64);
             this.lbl_desig.Name = "lbl_desig";
-            this.lbl_desig.Size = new System.Drawing.Size(91, 19);
+            this.lbl_desig.Size = new System.Drawing.Size(80, 16);
             this.lbl_desig.TabIndex = 35;
             this.lbl_desig.Text = "Designation";
             // 
             // lbl_uAge
             // 
             this.lbl_uAge.AutoSize = true;
-            this.lbl_uAge.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_uAge.Location = new System.Drawing.Point(161, 113);
+            this.lbl_uAge.Font = new System.Drawing.Font("Cambria", 10F);
+            this.lbl_uAge.Location = new System.Drawing.Point(144, 107);
             this.lbl_uAge.Name = "lbl_uAge";
-            this.lbl_uAge.Size = new System.Drawing.Size(35, 19);
+            this.lbl_uAge.Size = new System.Drawing.Size(31, 16);
             this.lbl_uAge.TabIndex = 34;
             this.lbl_uAge.Text = "Age";
             // 
             // lbl_FullName
             // 
             this.lbl_FullName.AutoSize = true;
-            this.lbl_FullName.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_FullName.Location = new System.Drawing.Point(161, 19);
+            this.lbl_FullName.Font = new System.Drawing.Font("Cambria", 10F);
+            this.lbl_FullName.Location = new System.Drawing.Point(144, 21);
             this.lbl_FullName.Name = "lbl_FullName";
-            this.lbl_FullName.Size = new System.Drawing.Size(79, 19);
+            this.lbl_FullName.Size = new System.Drawing.Size(71, 16);
             this.lbl_FullName.TabIndex = 33;
             this.lbl_FullName.Text = "Full Name";
             // 
@@ -1095,6 +1098,7 @@
             this.pic_user.Location = new System.Drawing.Point(6, 19);
             this.pic_user.Name = "pic_user";
             this.pic_user.Size = new System.Drawing.Size(133, 153);
+            this.pic_user.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic_user.TabIndex = 31;
             this.pic_user.TabStop = false;
             // 
@@ -1124,6 +1128,7 @@
             this.button3.TabIndex = 31;
             this.button3.Text = "Change Password";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // username
             // 
@@ -1153,6 +1158,7 @@
             this.txt_password.Name = "txt_password";
             this.txt_password.Size = new System.Drawing.Size(158, 23);
             this.txt_password.TabIndex = 32;
+            this.txt_password.TextChanged += new System.EventHandler(this.txt_password_TextChanged);
             // 
             // label18
             // 
@@ -1588,8 +1594,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvRequest)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reqAmt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reqDays)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_user)).EndInit();
@@ -1658,7 +1664,7 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label lbl_leaveOn;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker reqDate;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.GroupBox groupBox5;
@@ -1668,9 +1674,9 @@
         private System.Windows.Forms.Label lbl_FullName;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox pic_user;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown reqDays;
         private System.Windows.Forms.Label lbl_nOdays;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown reqAmt;
         private System.Windows.Forms.Label lbl_amount;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.DataGridView dgvRequest;

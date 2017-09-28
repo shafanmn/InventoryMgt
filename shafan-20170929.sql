@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 27, 2017 at 06:17 PM
+-- Generation Time: Sep 28, 2017 at 08:25 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `attendance` (
 --
 
 INSERT INTO `attendance` (`date`, `sId`, `inTime`, `offTime`, `otHrs`) VALUES
-('2017-09-27', 1, '21:20', '21:21', 0);
+('2017-09-27', 1, '21:20', '21:21', 0),
+('2017-09-28', 1, '19:15', '19:40', 0);
 
 -- --------------------------------------------------------
 
@@ -232,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `designation` (
   `otRate` double DEFAULT NULL,
   `leaves` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `designation`
@@ -240,11 +241,16 @@ CREATE TABLE IF NOT EXISTS `designation` (
 
 INSERT INTO `designation` (`id`, `name`, `bSal`, `otRate`, `leaves`) VALUES
 (0, 'Administrator', NULL, NULL, NULL),
-(1, 'Accountant', 65000, 350, 34),
-(2, 'Someone', 125000, 750, 33),
-(3, 'Accountant4', 56000, 650, 32),
-(4, 'Manager', 125000, 400, 7),
-(5, 'Supervisor', 55000, 550, 32);
+(1, 'CEO', 128000, 750, 42),
+(2, 'Managing Director', 124000, 750, 36),
+(3, 'Asst. Manager', 100000, 700, 30),
+(4, 'Accountant', 96500, 650, 28),
+(5, 'Asst. Accountant', 90000, 650, 28),
+(6, 'Sueprvisor', 86500, 600, 28),
+(7, 'Sales Representative', 18500, 250, 36),
+(8, 'Driver', 34500, 450, 28),
+(9, 'Office Clerk', 18500, 350, 24),
+(10, 'Labourer', 13500, 550, 24);
 
 -- --------------------------------------------------------
 
@@ -357,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `startingDate` date NOT NULL,
   `status` varchar(20) CHARACTER SET utf8 NOT NULL DEFAULT '0',
   PRIMARY KEY (`jobId`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jobs`
@@ -768,7 +774,7 @@ INSERT INTO `reorderlevel` (`itemCode`, `reOrderPoint`) VALUES
 DROP TABLE IF EXISTS `requests`;
 CREATE TABLE IF NOT EXISTS `requests` (
   `sId` int(2) NOT NULL,
-  `date` char(5) NOT NULL,
+  `date` char(10) NOT NULL,
   `type` int(1) NOT NULL,
   `amount` double DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
@@ -903,7 +909,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`name`, `address`, `tele`, `fax`, `email`, `sTime`, `oTime`, `hTime`, `image`) VALUES
-('Ewing Associates (Pvt) Ltd', '658/78 2/1,\nDanister De Silva Mawatha,\nColombo 9', '0112672732', '0112672732', 'info@ewingassociates.lk', '0730', '1700', '1230', 'D:\\_Shafan\\Csharp_Projects\\InventoryMgt\\InventoryMgt\\Images\\EwingPP.png');
+('Ewing Associates (Pvt) Ltd', '658/78 2/1,\nDanister De Silva Mawatha,\nColombo 9', '0112672732', '0112672732', 'info@ewingassociates.lk', '0730', '1700', '1230', 'E:\\Setup\\OP2\\OP2_Backup\\Image_and_Video\\Pictures\\EwingPP.png');
 
 -- --------------------------------------------------------
 
@@ -939,9 +945,9 @@ CREATE TABLE IF NOT EXISTS `staff` (
 
 INSERT INTO `staff` (`sId`, `uName`, `pass`, `fName`, `lname`, `add1`, `add2`, `religion`, `mob`, `email`, `nic`, `access`, `joined`, `dob`, `desig`, `image`) VALUES
 (0, 'ADMIN', 'admin', NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL),
-(1, 'SHAFAN', 'sha', 'SHAFAN', 'NAZIM', '34, De Waas Lane', 'Colombo 14', 3, '755619134', 'mohamed.shafan@my.sliit.lk', '199514303063', 1, '2016-01-01', '1995-05-22', 2, 'C:\\\\EwingAssociates\\\\EwingInventory\\\\Images\\\\Profile1K.png'),
+(1, 'SHAFAN', 'sha', 'SHAFAN', 'NAZIM', '34, De Waas Lane', '34, De Waas Lane', 3, '755619134', 'mohamed.shafan@my.sliit.lk', '199514303063', 1, '1995-05-22', '1995-05-22', 1, 'E:\\Setup\\OP2\\OP2_Backup\\Image_and_Video\\Pictures\\Profile1K.png'),
 (2, 'JAJE', 'jaje', 'JAJE', 'THANAN', 'adfs', 'faf', 2, '799856565', 'thanan@gmail.com', '959384321', 2, '2017-09-22', '1995-12-05', 3, NULL),
-(3, 'GOWSHI', 'gowshi', 'GOWSHALINI', 'RAJALINGAM', '87', 'sdawda', 3, '776589532', 'gow@shi.com', '199658596586', 2, '2017-09-23', '1996-12-05', 0, NULL),
+(3, 'GOWSHI', 'gowshi', 'GOWSHALINI', 'RAJALINGAM', '87', '87', 3, '776589532', 'gow@shi.com', '199658596586', 1, '1996-12-05', '1996-12-05', 0, 'E:\\Setup\\OP2\\OP2_Backup\\Image_and_Video\\Pictures\\Wallpapers\\20151218063256.jpg'),
 (4, 'MARK', 'mark', 'SHEHAN', 'FERNANDO', '78', 'Kollupitiya', 4, '7685965865', 'she@han.lk', '965833512', 2, '2017-07-01', '1996-09-06', 3, NULL),
 (5, 'NUSHRA', 'nush', 'NUSHARA', 'FAWMY', '40', '40', 3, '888595959', 'some@this.com', '199685665959', 2, '1992-04-22', '1992-04-22', 3, NULL);
 

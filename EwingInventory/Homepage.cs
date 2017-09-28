@@ -103,6 +103,31 @@ namespace EwingInventory
             }
 
         }
+
+        public bool isExist(string q)
+        {
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand cmd = new MySqlCommand(q,conn);
+            bool r = false;
+
+            try
+            {
+                conn.Open();
+                var read = cmd.ExecuteReader();
+                while (read.Read())
+                    r = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return r;
+        }
                                 
         private void Homepage_Load(object sender, EventArgs e)
         {
@@ -114,6 +139,7 @@ namespace EwingInventory
 
             if (currentUser != "ADMIN")
                 btn_settings.Visible = false;
+            
             
         }
 
@@ -154,6 +180,7 @@ namespace EwingInventory
                 frm_users userform = new frm_users();
                 userform.currentUser = this.currentUser;
                 userform.currentUID = this.currentUID;
+                userform.currentUseraccess = this.currentUserAccess;
                 toFront(userform);
             }
 

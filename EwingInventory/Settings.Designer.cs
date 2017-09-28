@@ -384,9 +384,9 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dataGridView1);
-            this.groupBox4.Location = new System.Drawing.Point(6, 318);
+            this.groupBox4.Location = new System.Drawing.Point(6, 293);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(649, 149);
+            this.groupBox4.Size = new System.Drawing.Size(649, 173);
             this.groupBox4.TabIndex = 33;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "View Staff";
@@ -399,7 +399,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(6, 20);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(244, 119);
+            this.dataGridView1.Size = new System.Drawing.Size(244, 147);
             this.dataGridView1.TabIndex = 31;
             // 
             // groupBox3
@@ -418,7 +418,7 @@
             this.groupBox3.Controls.Add(this.dgv_Desig);
             this.groupBox3.Location = new System.Drawing.Point(6, 7);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(649, 305);
+            this.groupBox3.Size = new System.Drawing.Size(649, 280);
             this.groupBox3.TabIndex = 32;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Manage Designations";
@@ -428,7 +428,7 @@
             this.btn_new.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn_new.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_new.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btn_new.Location = new System.Drawing.Point(294, 255);
+            this.btn_new.Location = new System.Drawing.Point(294, 228);
             this.btn_new.Name = "btn_new";
             this.btn_new.Size = new System.Drawing.Size(75, 43);
             this.btn_new.TabIndex = 30;
@@ -442,7 +442,7 @@
             this.btn_closeDes.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_closeDes.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_closeDes.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btn_closeDes.Location = new System.Drawing.Point(512, 255);
+            this.btn_closeDes.Location = new System.Drawing.Point(512, 228);
             this.btn_closeDes.Name = "btn_closeDes";
             this.btn_closeDes.Size = new System.Drawing.Size(75, 43);
             this.btn_closeDes.TabIndex = 29;
@@ -455,7 +455,7 @@
             this.btn_save.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.btn_save.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_save.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btn_save.Location = new System.Drawing.Point(400, 255);
+            this.btn_save.Location = new System.Drawing.Point(400, 228);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(75, 43);
             this.btn_save.TabIndex = 28;
@@ -517,6 +517,7 @@
             this.udOt.Name = "udOt";
             this.udOt.Size = new System.Drawing.Size(104, 23);
             this.udOt.TabIndex = 25;
+            this.udOt.ThousandsSeparator = true;
             this.udOt.Value = new decimal(new int[] {
             250,
             0,
@@ -545,6 +546,7 @@
             this.udBsal.Name = "udBsal";
             this.udBsal.Size = new System.Drawing.Size(104, 23);
             this.udBsal.TabIndex = 24;
+            this.udBsal.ThousandsSeparator = true;
             this.udBsal.Value = new decimal(new int[] {
             9500,
             0,
@@ -609,7 +611,7 @@
             this.dgv_Desig.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgv_Desig.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_Desig.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_Desig.Size = new System.Drawing.Size(246, 270);
+            this.dgv_Desig.Size = new System.Drawing.Size(246, 243);
             this.dgv_Desig.TabIndex = 0;
             this.dgv_Desig.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Desig_CellClick);
             // 
