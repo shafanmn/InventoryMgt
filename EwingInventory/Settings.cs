@@ -339,7 +339,6 @@ namespace EwingInventory
             if(ofd.ShowDialog() == DialogResult.OK)
             {
                 set_logo.Image = new Bitmap(ofd.FileName);
-                MessageBox.Show(ofd.FileName);
                 logoPath = ofd.FileName;
             }
         }

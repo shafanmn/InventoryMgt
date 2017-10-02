@@ -344,7 +344,7 @@
             // 
             this.txtcid.Location = new System.Drawing.Point(156, 41);
             this.txtcid.Name = "txtcid";
-            this.txtcid.Size = new System.Drawing.Size(140, 25);
+            this.txtcid.Size = new System.Drawing.Size(53, 25);
             this.txtcid.TabIndex = 24;
             this.txtcid.TextChanged += new System.EventHandler(this.txtcid_TextChanged);
             this.txtcid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtcid_KeyDown);

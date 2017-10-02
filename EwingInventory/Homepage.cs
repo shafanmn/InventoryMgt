@@ -293,8 +293,16 @@ namespace EwingInventory
 
         private void btn_finance_Click(object sender, EventArgs e)
         {
-            Account ac = new Account();
-            toFront(ac);
+            bool b = false;
+
+            foreach (Form f in Application.OpenForms)
+                if (f.Name == "AccountFrm")
+                    b = true;
+            if (!b)
+            {
+                AccountFrm act = new AccountFrm();
+                toFront(act);
+            }
         }
     }
     

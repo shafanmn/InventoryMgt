@@ -8,20 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using EwingInventory;
 
 namespace Accounts
 {
-    public partial class Account : Form
+    public partial class AccountFrm : Form
     {
 
         // MySqlDataAdapter adapter;
         DataTable dt;
-
+        Homepage home = new Homepage();
         int r;
         
 
         
-        public Account()
+        public AccountFrm()
         {
             InitializeComponent();
 
@@ -83,6 +84,9 @@ namespace Accounts
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string w = Screen.FromControl(home).WorkingArea.Width.ToString();
+            this.Location = new Point((Convert.ToInt32(w) - this.Width) / 2, 120);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             panel2.Visible = false;
            
             Clear();

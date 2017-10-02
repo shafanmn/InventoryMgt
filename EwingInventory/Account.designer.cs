@@ -1,6 +1,6 @@
 ﻿namespace Accounts
 {
-    partial class Account
+    partial class AccountFrm
     {
         /// <summary>
         /// Required designer variable.
@@ -2240,7 +2240,7 @@
             this.label101.TabIndex = 1;
             this.label101.Text = "Cost";
             // 
-            // Form1
+            // AccountFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -2248,7 +2248,7 @@
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "AccountFrm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);

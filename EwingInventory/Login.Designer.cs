@@ -66,6 +66,7 @@
             this.passField.PasswordChar = '*';
             this.passField.Size = new System.Drawing.Size(148, 26);
             this.passField.TabIndex = 2;
+            this.passField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passField_KeyDown);
             // 
             // btn_login
             // 

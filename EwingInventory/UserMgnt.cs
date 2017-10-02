@@ -173,6 +173,32 @@ namespace EwingInventory
             return o;
         }
 
+        bool isValidNIC(string nic)
+        {
+            bool r = true;
+            int year = Convert.ToInt32(nic);
+
+            if (nic.Length == 2)
+            {
+                if (year < 62 && year != 19)
+                    r = false;
+            }else if(nic.Length == 4)
+            {
+                if (year < 1962)
+                    r = false;
+            }else if(nic.Length == 10)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(nic, "^[0-9]{9}[xXvV]$"))
+                    r = false;
+            }else if(nic.Length == 12)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(nic, "^[0-9]{12}$"))
+                    r = false;
+            }
+
+            return r;
+        }
+
         public void userDetails()
         {
             MySqlConnection conn = new MySqlConnection(home.connString);
@@ -324,7 +350,6 @@ namespace EwingInventory
             btn_save.Text = "Edit";
             btn_save.Enabled = true;
             this.selectedUser = dgvStaff.SelectedCells[1].Value.ToString();
-
             string id = dgvStaff.SelectedCells[0].Value.ToString();
             
             MySqlConnection conn = new MySqlConnection(home.connString);
@@ -394,7 +419,7 @@ namespace EwingInventory
             {
                 if (isFilled())
                 {
-                    if(this.selectedUser != txt_user.Text && home.isExist("SELECT uName FROM staff WHERE uName='"+txt_user.Text+"';"))
+                    if(this.selectedUser.ToString() != txt_user.Text && home.isExist("SELECT uName FROM staff WHERE uName='"+txt_user.Text+"';"))
                     {
                         MessageBox.Show("Username already exist!", "Error");
                         txt_user.Focus();
@@ -429,7 +454,7 @@ namespace EwingInventory
                             cmd.Parameters.Add("@fName", MySqlDbType.VarChar).Value = txt_fName.Text;
                             cmd.Parameters.Add("@lName", MySqlDbType.VarChar).Value = txt_lName.Text;
                             cmd.Parameters.Add("@add1", MySqlDbType.VarChar).Value = txt_addr1.Text;
-                            cmd.Parameters.Add("@add2", MySqlDbType.VarChar).Value = txt_addr1.Text;
+                            cmd.Parameters.Add("@add2", MySqlDbType.VarChar).Value = txt_addr2.Text;
                             cmd.Parameters.Add("@religion", MySqlDbType.Int32).Value = comboBox3.SelectedIndex;
                             cmd.Parameters.Add("@mob", MySqlDbType.VarChar).Value = txt_mob.Text;
                             cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = txt_email.Text;
@@ -570,30 +595,8 @@ namespace EwingInventory
 
         private void txt_nic_TextChanged(object sender, EventArgs e)
         {
-
-            //Validate NIC No
-            if(txt_nic.Text.Length == 10)
-            {
-                int a;
-                if (!int.TryParse(txt_nic.Text, out a))
-                {
-                    if (txt_nic.Text.Substring(9, 1) != "V" || txt_nic.Text.Substring(9, 1) != "X")
-                    {
-                        MessageBox.Show("Invalid N.I.C No2");
-                        txt_nic.Text = txt_nic.Text.Remove(txt_nic.Text.Length - 1);
-                        txt_nic.SelectionStart = txt_nic.Text.Length;
-                    }
-                }
-            }
-            else
-            {
-                if (System.Text.RegularExpressions.Regex.IsMatch(txt_nic.Text, "[^0-9]"))
-                {
-                    MessageBox.Show("Invalid N.I.C No3");
-                    txt_nic.Text = txt_nic.Text.Remove(txt_nic.Text.Length - 1);
-                    txt_nic.SelectionStart = txt_nic.Text.Length;
-                }
-            }
+            //if (!isValidNIC(txt_nic.Text))
+            //    MessageBox.Show("Invalid N.I.C Number!");
         }//end
 
         private void txt_mob_TextChanged(object sender, EventArgs e)

@@ -135,6 +135,11 @@ namespace EwingInventory
             
         }
 
+        private void passField_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btn_login_Click(sender, e);
+        }
     }
 
 }
