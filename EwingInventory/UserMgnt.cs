@@ -176,26 +176,31 @@ namespace EwingInventory
         bool isValidNIC(string nic)
         {
             bool r = true;
-            int year = Convert.ToInt32(nic);
-
-            if (nic.Length == 2)
+            if (nic != "")
             {
-                if (year < 62 && year != 19)
-                    r = false;
-            }else if(nic.Length == 4)
-            {
-                if (year < 1962)
-                    r = false;
-            }else if(nic.Length == 10)
-            {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(nic, "^[0-9]{9}[xXvV]$"))
-                    r = false;
-            }else if(nic.Length == 12)
-            {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(nic, "^[0-9]{12}$"))
-                    r = false;
+                if (nic.Length == 2)
+                {
+                    int year = Convert.ToInt32(nic);
+                    if (year < 62 && year != 19)
+                        r = false;
+                }
+                else if (nic.Length == 4)
+                {
+                    int year = Convert.ToInt32(nic);
+                    if (year < 1962)
+                        r = false;
+                }
+                else if (nic.Length == 10)
+                {
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(nic, "^[0-9]{9}[xXvV]$") && !System.Text.RegularExpressions.Regex.IsMatch(nic, "^[0-9]{10}$"))
+                        r = false;
+                }
+                else if (nic.Length == 12)
+                {
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(nic, "^[0-9]{12}$"))
+                        r = false;
+                }
             }
-
             return r;
         }
 
@@ -595,8 +600,23 @@ namespace EwingInventory
 
         private void txt_nic_TextChanged(object sender, EventArgs e)
         {
-            //if (!isValidNIC(txt_nic.Text))
-            //    MessageBox.Show("Invalid N.I.C Number!");
+            if (!isValidNIC(txt_nic.Text))
+            {
+                txt_nic.Text = txt_nic.Text.Remove(txt_nic.Text.Length - 1);
+                txt_nic.SelectionStart = txt_nic.Text.Length;
+                MessageBox.Show("Invalid N.I.C Number!");
+            }else
+            {
+                if(txt_nic.Text.Length == 2)
+                {
+                    int y = Convert.ToInt32(txt_nic.Text);
+                    if (y > 62)
+                        txt_nic.MaxLength = 10;
+                    else
+                        txt_nic.MaxLength = 12;
+                }
+            }
+            
         }//end
 
         private void txt_mob_TextChanged(object sender, EventArgs e)
