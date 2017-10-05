@@ -206,12 +206,12 @@ namespace EwingInventory
             bool b = false;
 
             foreach (Form f in Application.OpenForms)
-                if (f.Name == "Form1")
+                if (f.Name == "StockManagement")
                     b = true;
             if (!b)
             {
-                Form1 form1 = new Form1();
-                toFront(form1);
+                StockManagement st = new StockManagement();
+                toFront(st);
                 
             }
         }
